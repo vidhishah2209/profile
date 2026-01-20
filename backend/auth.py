@@ -10,9 +10,12 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
 # Security configuration
-SECRET_KEY = "your-secret-key-change-in-production-vidhiportfolio2024"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours
+import os
+
+# Security configuration
+SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production-vidhiportfolio2024")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60 * 24))  # 24 hours
 
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
